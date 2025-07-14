@@ -11,6 +11,26 @@ describe("Ship Class", () => {
     const instance = new Ship(3);
     expect(instance).toBeInstanceOf(Ship);
   });
+
+  test("check error thrown if string value inputted (1)", () => {
+    expect(() => new Ship("2")).toThrow("Length must be positive number");
+  });
+
+  test("check error thrown if string value inputted (2)", () => {
+    expect(() => new Ship(2, "4")).toThrow(
+      "Times hit input must be positive number"
+    );
+  });
+
+  test("check error thrown if string value inputted (3)", () => {
+    expect(() => new Ship(-2)).toThrow("Length must be positive number");
+  });
+
+  test("check error thrown if string value inputted (4)", () => {
+    expect(() => new Ship(2, -4)).toThrow(
+      "Times hit input must be positive number"
+    );
+  });
   test("check Hit function/method exists", () => {
     const instance = new Ship(5);
     expect(instance.hit).toBeInstanceOf(Function);
@@ -48,13 +68,5 @@ describe("Ship Class", () => {
     const instance = new Ship(2);
     const isSunk = instance.isSunk();
     expect(isSunk).toBe(false);
-  });
-
-  test("check error thrown if string value inputted (1)", () => {
-    expect(() => new Ship("2")).toThrow(Error);
-  });
-
-  test("check error thrown if string value inputted (2)", () => {
-    expect(() => new Ship(2, "4")).toThrow(Error);
   });
 });
