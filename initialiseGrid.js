@@ -1,4 +1,4 @@
-function initialiseGrid(gridSize) {
+export default function initialiseGrid(gridSize) {
   const arrayY = [];
   for (let i = 0; i < gridSize; i++) {
     const arrayX = [];
