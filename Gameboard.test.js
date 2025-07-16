@@ -38,4 +38,27 @@ describe("Gameboard Class", () => {
     // Final check that all rows contain ten zeros
     expect(allRowsContainTenZeros).toBe(true);
   });
+
+  test("check placeShip function/method exists", () => {
+    const instance = new Gameboard();
+    expect(instance.placeShip).toBeInstanceOf(Function);
+  });
+
+  test("check placeShip function adds ship to gameboard", () => {
+    const playerGameboard = new Gameboard();
+    const cruiserShip = new Ship("Cruiser");
+    playerGameboard.placeShip(cruiserShip, [3, 5]);
+    expect(playerGameboard.playerBoard).toStrictEqual([
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, "R", "R", "R", 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ]);
+  });
 });
