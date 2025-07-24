@@ -7,13 +7,13 @@ describe("Gameboard Class", () => {
   });
 
   test("check is Class", () => {
-    const instance = new Gameboard();
-    expect(instance).toBeInstanceOf(Gameboard);
+    const playerGameboard = new Gameboard();
+    expect(playerGameboard).toBeInstanceOf(Gameboard);
   });
 
   test("check board created is array of 10 arrays each of length 10", () => {
-    const instance = new Gameboard();
-    expect(instance.playerBoard).toStrictEqual([
+    const playerGameboard = new Gameboard();
+    expect(playerGameboard.playerBoard).toStrictEqual([
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -28,20 +28,20 @@ describe("Gameboard Class", () => {
   });
 
   test("check board is array of 10 arrays all including 10 zeros", () => {
-    const instance = new Gameboard();
+    const playerGameboard = new Gameboard();
     // Check that each row has a length of 10 and contains only zeros
-    const allRowsContainTenZeros = instance.playerBoard.every(
+    const allRowsContainTenZeros = playerGameboard.playerBoard.every(
       (row) => row.length === 10 && row.every((cell) => cell === 0)
     );
     // Check that the playerBoard has exactly 10 rows
-    expect(instance.playerBoard.length).toBe(10);
+    expect(playerGameboard.playerBoard.length).toBe(10);
     // Final check that all rows contain ten zeros
     expect(allRowsContainTenZeros).toBe(true);
   });
 
   test("check placeShip function/method exists", () => {
-    const instance = new Gameboard();
-    expect(instance.placeShip).toBeInstanceOf(Function);
+    const playerGameboard = new Gameboard();
+    expect(playerGameboard.placeShip).toBeInstanceOf(Function);
   });
 
   test("check placeShip function adds ship to gameboard (Horizontal) (1)", () => {
@@ -279,5 +279,16 @@ describe("Gameboard Class", () => {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, "R"],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, "R"],
     ]);
+  });
+
+  test("check receiveAttack function/method exists", () => {
+    const playerGameboard = new Gameboard();
+    expect(playerGameboard.receiveAttack).toBeInstanceOf(Function);
+  });
+
+  test("receiveAttack function determines if coords hit placed ship", () => {
+    const playerGameboard = new Gameboard();
+    const cruiser = playerGameboard.fleet.cruiser;
+    expect(playerGameboard.receiveAttack).toBeInstanceOf(Function);
   });
 });
