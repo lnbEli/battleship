@@ -46,7 +46,7 @@ describe("Gameboard Class", () => {
 
   test("check placeShip function adds ship to gameboard (Horizontal) (1)", () => {
     const playerGameboard = new Gameboard();
-    const cruiser = new Ship("Cruiser");
+    const cruiser = playerGameboard.fleet.cruiser;
     playerGameboard.placeShip(cruiser, [3, 5]);
     expect(playerGameboard.playerBoard).toStrictEqual([
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -64,7 +64,7 @@ describe("Gameboard Class", () => {
 
   test("check placeShip function adds ship to gameboard (Horizontal)(2)", () => {
     const playerGameboard = new Gameboard();
-    const battleship = new Ship("Battleship");
+    const battleship = playerGameboard.fleet.battleship;
     playerGameboard.placeShip(battleship, [2, 3]);
     expect(playerGameboard.playerBoard).toStrictEqual([
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -82,7 +82,7 @@ describe("Gameboard Class", () => {
 
   test("check placeShip function adds ship to gameboard (Horizontal)(3)", () => {
     const playerGameboard = new Gameboard();
-    const battleship = new Ship("Battleship");
+    const battleship = playerGameboard.fleet.battleship;
     playerGameboard.placeShip(battleship, [6, 3]);
     expect(playerGameboard.playerBoard).toStrictEqual([
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -100,7 +100,7 @@ describe("Gameboard Class", () => {
 
   test("check placeShip function adds ship to gameboard (Horizontal)(4)", () => {
     const playerGameboard = new Gameboard();
-    const battleship = new Ship("Battleship");
+    const battleship = playerGameboard.fleet.battleship;
     playerGameboard.placeShip(battleship, [0, 3]);
     expect(playerGameboard.playerBoard).toStrictEqual([
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -118,7 +118,7 @@ describe("Gameboard Class", () => {
 
   test("check placeShip function adds ship to gameboard (Horizontal)(5)", () => {
     const playerGameboard = new Gameboard();
-    const battleship = new Ship("Battleship");
+    const battleship = playerGameboard.fleet.battleship;
     playerGameboard.placeShip(battleship, [4, 0]);
     expect(playerGameboard.playerBoard).toStrictEqual([
       [0, 0, 0, 0, "B", "B", "B", "B", 0, 0],
@@ -136,7 +136,7 @@ describe("Gameboard Class", () => {
 
   test("check placeShip function adds ship to gameboard (Horizontal)(6)", () => {
     const playerGameboard = new Gameboard();
-    const battleship = new Ship("Battleship");
+    const battleship = playerGameboard.fleet.battleship;
     playerGameboard.placeShip(battleship, [4, 9]);
     expect(playerGameboard.playerBoard).toStrictEqual([
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -153,8 +153,8 @@ describe("Gameboard Class", () => {
   });
   test("check placeShip function adds multiple ships to gameboard (Horizontal)", () => {
     const playerGameboard = new Gameboard();
-    const cruiser = new Ship("Cruiser");
-    const battleship = new Ship("Battleship");
+    const cruiser = playerGameboard.fleet.cruiser;
+    const battleship = playerGameboard.fleet.battleship;
     playerGameboard.placeShip(cruiser, [3, 5]);
     expect(playerGameboard.playerBoard).toStrictEqual([
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -185,7 +185,7 @@ describe("Gameboard Class", () => {
 
   test("Ship cannot be added to gameboard if there isn't sufficient space available to fit it's entire length (1)", () => {
     const playerGameboard = new Gameboard();
-    const submarine = new Ship("Submarine");
+    const submarine = playerGameboard.fleet.submarine;
     expect(() => {
       playerGameboard.placeShip(submarine, [8, 7]);
     }).toThrow("Must Choose Space With Sufficient Empty Cells");
@@ -193,7 +193,7 @@ describe("Gameboard Class", () => {
 
   test("Ship cannot be added to gameboard if there isn't sufficient space available to fit it's entire length(2)", () => {
     const playerGameboard = new Gameboard();
-    const destroyer = new Ship("Destroyer");
+    const destroyer = playerGameboard.fleet.destroyer;
     expect(() => {
       playerGameboard.placeShip(destroyer, [9, 1]);
     }).toThrow("Must Choose Space With Sufficient Empty Cells");
@@ -201,7 +201,7 @@ describe("Gameboard Class", () => {
 
   test("Ship cannot be added to gameboard if cell doesn't exist (1)", () => {
     const playerGameboard = new Gameboard();
-    const cruiser = new Ship("Cruiser");
+    const cruiser = playerGameboard.fleet.cruiser;
     expect(() => {
       playerGameboard.placeShip(cruiser, [-2, 7]);
     }).toThrow("Must Choose Available Cells");
@@ -209,14 +209,14 @@ describe("Gameboard Class", () => {
 
   test("Ship cannot be added to gameboard if cell doesn't exist (2)", () => {
     const playerGameboard = new Gameboard();
-    const cruiser = new Ship("Cruiser");
+    const cruiser = playerGameboard.fleet.cruiser;
     expect(() => {
       playerGameboard.placeShip(cruiser, [12, 2]);
     }).toThrow("Must Choose Available Cells");
   });
   test("Ship cannot be added to gameboard if cell doesn't exist (3)", () => {
     const playerGameboard = new Gameboard();
-    const cruiser = new Ship("Cruiser");
+    const cruiser = playerGameboard.fleet.cruiser;
     expect(() => {
       playerGameboard.placeShip(cruiser, [10, 2]);
     }).toThrow("Must Choose Available Cells");
@@ -224,14 +224,14 @@ describe("Gameboard Class", () => {
 
   test("Ship cannot be added to gameboard if cell doesn't exist (4)", () => {
     const playerGameboard = new Gameboard();
-    const cruiser = new Ship("Cruiser");
+    const cruiser = playerGameboard.fleet.cruiser;
     expect(() => {
       playerGameboard.placeShip(cruiser, [-1, 2]);
     }).toThrow("Must Choose Available Cells");
   });
   test("Ship cannot be added to gameboard if cell doesn't exist (5)", () => {
     const playerGameboard = new Gameboard();
-    const cruiser = new Ship("Cruiser");
+    const cruiser = playerGameboard.fleet.cruiser;
     expect(() => {
       playerGameboard.placeShip(cruiser, [4, -1]);
     }).toThrow("Must Choose Available Cells");
@@ -239,7 +239,7 @@ describe("Gameboard Class", () => {
 
   test("Ship cannot be added to gameboard if cell doesn't exist (6)", () => {
     const playerGameboard = new Gameboard();
-    const cruiser = new Ship("Cruiser");
+    const cruiser = playerGameboard.fleet.cruiser;
     expect(() => {
       playerGameboard.placeShip(cruiser, [3, 10]);
     }).toThrow("Must Choose Available Cells");
@@ -247,7 +247,7 @@ describe("Gameboard Class", () => {
 
   test("check placeShip function adds ship to gameboard (Vertical) (1)", () => {
     const playerGameboard = new Gameboard();
-    const cruiser = new Ship("Cruiser");
+    const cruiser = playerGameboard.fleet.cruiser;
     playerGameboard.placeShip(cruiser, [3, 5], false);
     expect(playerGameboard.playerBoard).toStrictEqual([
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -265,7 +265,7 @@ describe("Gameboard Class", () => {
 
   test("check placeShip function adds ship to gameboard (Vertical) (2)", () => {
     const playerGameboard = new Gameboard();
-    const cruiser = new Ship("Cruiser");
+    const cruiser = playerGameboard.fleet.cruiser;
     playerGameboard.placeShip(cruiser, [9, 7], false);
     expect(playerGameboard.playerBoard).toStrictEqual([
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

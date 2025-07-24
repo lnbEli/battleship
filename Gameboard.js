@@ -1,8 +1,16 @@
 import initialiseGrid from "./initialiseGrid";
+import Ship from "./Ship";
 export default class Gameboard {
   constructor() {
     //Create 10x10 gameboard
     this.playerBoard = initialiseGrid(10);
+    this.fleet = {
+      carrier: new Ship("Carrier"),
+      battleship: new Ship("Battleship"),
+      cruiser: new Ship("Cruiser"),
+      submarine: new Ship("Submarine"),
+      destroyer: new Ship("Destroyer"),
+    };
   }
 
   placeShip(shipObj, location, isHorizontal = true) {
