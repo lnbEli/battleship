@@ -289,6 +289,8 @@ describe("Gameboard Class", () => {
   test("receiveAttack function determines if coords hit placed ship", () => {
     const playerGameboard = new Gameboard();
     const cruiser = playerGameboard.fleet.cruiser;
-    expect(playerGameboard.receiveAttack).toBeInstanceOf(Function);
+    playerGameboard.placeShip(cruiser, [9, 7], false);
+    expect(playerGameboard.receiveAttack([9, 7])).toBe(true);
+    expect(playerGameboard.receiveAttack([1, 2])).toBe(false);
   });
 });

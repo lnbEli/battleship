@@ -4,6 +4,7 @@ export default class Gameboard {
   constructor() {
     //Create 10x10 gameboard
     this.playerBoard = initialiseGrid(10);
+    //Add fleet of ships
     this.fleet = {
       carrier: new Ship("Carrier"),
       battleship: new Ship("Battleship"),
@@ -57,6 +58,16 @@ export default class Gameboard {
         }
         this.playerBoard[row + i][column] = shipGridSymbol;
       }
+    }
+  }
+
+  receiveAttack(location) {
+    const row = location[1];
+    const column = location[0];
+    if (this.playerBoard[row][column] !== 0) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
