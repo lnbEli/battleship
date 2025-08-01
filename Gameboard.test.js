@@ -286,11 +286,169 @@ describe("Gameboard Class", () => {
     expect(playerGameboard.receiveAttack).toBeInstanceOf(Function);
   });
 
-  test("receiveAttack function determines if coords hit placed ship", () => {
+  test("receiveAttack function determines if coords hit placed ship (1)", () => {
     const playerGameboard = new Gameboard();
     const cruiser = playerGameboard.fleet.cruiser;
     playerGameboard.placeShip(cruiser, [9, 7], false);
     expect(playerGameboard.receiveAttack([9, 7])).toBe(true);
+  });
+
+  test("receiveAttack function determines if coords hit placed ship (2)", () => {
+    const playerGameboard = new Gameboard();
+    const cruiser = playerGameboard.fleet.cruiser;
+    playerGameboard.placeShip(cruiser, [9, 7], false);
     expect(playerGameboard.receiveAttack([1, 2])).toBe(false);
+  });
+
+  test("receiveAttack function determines if coords hit placed ship (3)", () => {
+    const playerGameboard = new Gameboard();
+    const cruiser = playerGameboard.fleet.cruiser;
+    playerGameboard.placeShip(cruiser, [9, 7], false);
+    expect(playerGameboard.receiveAttack([-5, 7])).toBe(false);
+  });
+
+  test("receiveAttack function determines if coords hit placed ship (4)", () => {
+    const playerGameboard = new Gameboard();
+    const cruiser = playerGameboard.fleet.cruiser;
+    playerGameboard.placeShip(cruiser, [9, 7], false);
+    expect(playerGameboard.receiveAttack([5, -7])).toBe(false);
+  });
+
+  test("receiveAttack function determines if coords hit placed ship (5)", () => {
+    const playerGameboard = new Gameboard();
+    const cruiser = playerGameboard.fleet.cruiser;
+    playerGameboard.placeShip(cruiser, [1, 4], false);
+    expect(playerGameboard.receiveAttack([1, 3])).toBe(false);
+    expect(playerGameboard.receiveAttack([1, 4])).toBe(true);
+    expect(playerGameboard.receiveAttack([1, 5])).toBe(true);
+    expect(playerGameboard.receiveAttack([1, 6])).toBe(true);
+    expect(playerGameboard.receiveAttack([1, 7])).toBe(false);
+  });
+
+  test("receiveAttack function determines if coords hit placed ship and send hit function to correct ship (1)", () => {
+    const playerGameboard = new Gameboard();
+    const cruiser = playerGameboard.fleet.cruiser;
+    playerGameboard.placeShip(cruiser, [1, 4], false);
+    expect(playerGameboard.receiveAttack([1, 5])).toBe(true);
+    expect(playerGameboard.fleet["cruiser"].timesHit).toBe(1);
+  });
+
+  test("receiveAttack function determines if coords hit placed ship and send hit function to correct ship (2)", () => {
+    const playerGameboard = new Gameboard();
+    const cruiser = playerGameboard.fleet.cruiser;
+    playerGameboard.placeShip(cruiser, [1, 4], false);
+    expect(playerGameboard.receiveAttack([1, 5])).toBe(true);
+    expect(playerGameboard.receiveAttack([1, 6])).toBe(true);
+    expect(playerGameboard.fleet["cruiser"].timesHit).toBe(2);
+  });
+
+  test("receiveAttack function determines if coords hit placed ship and send hit function to correct ship (3)", () => {
+    const playerGameboard = new Gameboard();
+    const destroyer = playerGameboard.fleet.destroyer;
+    playerGameboard.placeShip(destroyer, [2, 2], true);
+    expect(playerGameboard.receiveAttack([3, 2])).toBe(true);
+    expect(playerGameboard.receiveAttack([2, 1])).toBe(false);
+    expect(playerGameboard.fleet["destroyer"].timesHit).toBe(1);
+    expect(playerGameboard.receiveAttack([2, 2])).toBe(true);
+    expect(playerGameboard.fleet["destroyer"].timesHit).toBe(2);
+    expect(playerGameboard.receiveAttack([4, 2])).toBe(false);
+    expect(playerGameboard.fleet["destroyer"].timesHit).toBe(2);
+  });
+
+  test("Gameboards should keep track of missed attacks so they can display them properly (1)", () => {
+    const playerGameboard = new Gameboard();
+    playerGameboard.receiveAttack([1, 5]);
+    expect(playerGameboard.playerBoard).toStrictEqual([
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, "M", 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ]);
+  });
+
+  test("Gameboards should keep track of missed attacks so they can display them properly (2)", () => {
+    const playerGameboard = new Gameboard();
+    playerGameboard.receiveAttack([4, 3]);
+    expect(playerGameboard.playerBoard).toStrictEqual([
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, "M", 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ]);
+  });
+
+  test("Gameboards should keep track of missed attacks so they can display them properly (3)", () => {
+    const playerGameboard = new Gameboard();
+    playerGameboard.receiveAttack([-1, -5]);
+    expect(playerGameboard.playerBoard).toStrictEqual([
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ]);
+  });
+  test("Gameboards should keep track of missed attacks so they can display them properly (4)", () => {
+    const playerGameboard = new Gameboard();
+    const destroyer = playerGameboard.fleet.destroyer;
+    playerGameboard.placeShip(destroyer, [2, 2], true);
+    playerGameboard.receiveAttack([5, 5]);
+    expect(playerGameboard.playerBoard).toStrictEqual([
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, "D", "D", 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, "M", 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ]);
+  });
+  test("Gameboards should keep track of missed attacks so they can display them properly with full board of ships", () => {
+    const playerGameboard = new Gameboard();
+    const carrier = playerGameboard.fleet.carrier;
+    const battleship = playerGameboard.fleet.battleship;
+    const cruiser = playerGameboard.fleet.cruiser;
+    const submarine = playerGameboard.fleet.submarine;
+    const destroyer = playerGameboard.fleet.destroyer;
+    playerGameboard.placeShip(carrier, [2, 2], true);
+    playerGameboard.placeShip(battleship, [4, 5], false);
+    playerGameboard.placeShip(cruiser, [6, 6], true);
+    playerGameboard.placeShip(submarine, [1, 5], false);
+    playerGameboard.placeShip(destroyer, [9, 2], false);
+    playerGameboard.receiveAttack([1, 4]);
+    playerGameboard.receiveAttack([5, 5]);
+    playerGameboard.receiveAttack([5, 9]);
+    expect(playerGameboard.playerBoard).toStrictEqual([
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, "C", "C", "C", "C", "C", 0, 0, "D"],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, "D"],
+      [0, "M", 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, "S", 0, 0, "B", "M", 0, 0, 0, 0],
+      [0, "S", 0, 0, "B", 0, "R", "R", "R", 0],
+      [0, "S", 0, 0, "B", 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, "B", 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, "M", 0, 0, 0, 0],
+    ]);
   });
 });

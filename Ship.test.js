@@ -6,7 +6,7 @@ describe("Ship Class", () => {
   });
 
   test("check is Class", () => {
-    const instance = new Ship("Carrier");
+    const instance = new Ship("carrier");
     expect(instance).toBeInstanceOf(Ship);
   });
 
@@ -19,12 +19,12 @@ describe("Ship Class", () => {
   });
 
   test("check Hit function/method exists", () => {
-    const instance = new Ship("Battleship");
+    const instance = new Ship("battleship");
     expect(instance.hit).toBeInstanceOf(Function);
   });
 
   test("check Hit function increases number of hits on ship (1)", () => {
-    const instance = new Ship("Battleship");
+    const instance = new Ship("battleship");
     instance.hit();
     expect(instance.timesHit).toBe(1);
     instance.hit();
@@ -32,7 +32,7 @@ describe("Ship Class", () => {
   });
 
   test("check Hit function increases number of hits on ship (2)", () => {
-    const instance = new Ship("Submarine");
+    const instance = new Ship("submarine");
     instance.hit();
     instance.hit();
     instance.hit();
@@ -40,33 +40,33 @@ describe("Ship Class", () => {
   });
 
   test("isSunk function/method exists", () => {
-    const instance = new Ship("Submarine");
+    const instance = new Ship("submarine");
     expect(instance.isSunk).toBeInstanceOf(Function);
   });
 
   test("check isSunk function (1)", () => {
-    const instance = new Ship("Submarine");
+    const instance = new Ship("submarine");
     instance.timesHit = instance.length;
     const isSunk = instance.isSunk();
     expect(isSunk).toBe(true);
   });
 
   test("check isSunk function (2)", () => {
-    const instance = new Ship("Submarine");
+    const instance = new Ship("submarine");
     instance.timesHit = instance.length - 1;
     const isSunk = instance.isSunk();
     expect(isSunk).toBe(false);
   });
 
   test("check isSunk function (3)", () => {
-    const instance = new Ship("Destroyer");
+    const instance = new Ship("destroyer");
     instance.timesHit = instance.length + 1;
     const isSunk = instance.isSunk();
     expect(isSunk).toBe(true);
   });
 
   test("check isSunk function (4)", () => {
-    const instance = new Ship("Destroyer");
+    const instance = new Ship("destroyer");
     instance.timesHit = 1;
     const isSunk = instance.isSunk();
     expect(isSunk).toBe(false);

@@ -6,11 +6,11 @@ export default class Gameboard {
     this.playerBoard = initialiseGrid(10);
     //Add fleet of ships
     this.fleet = {
-      carrier: new Ship("Carrier"),
-      battleship: new Ship("Battleship"),
-      cruiser: new Ship("Cruiser"),
-      submarine: new Ship("Submarine"),
-      destroyer: new Ship("Destroyer"),
+      carrier: new Ship("carrier"),
+      battleship: new Ship("battleship"),
+      cruiser: new Ship("cruiser"),
+      submarine: new Ship("submarine"),
+      destroyer: new Ship("destroyer"),
     };
   }
 
@@ -21,11 +21,11 @@ export default class Gameboard {
     const shipType = shipObj.typeOfShip;
     //Give each ship type a symbol for use on gameboard grid.
     const shipSymbols = {
-      Carrier: "C",
-      Battleship: "B",
-      Cruiser: "R",
-      Submarine: "S",
-      Destroyer: "D",
+      carrier: "C",
+      battleship: "B",
+      cruiser: "R",
+      submarine: "S",
+      destroyer: "D",
     };
     const shipGridSymbol = shipSymbols[shipType];
     //replaces empty symbol "0" with ship symbol on grid.
@@ -64,8 +64,24 @@ export default class Gameboard {
   receiveAttack(location) {
     const row = location[1];
     const column = location[0];
-    if (this.playerBoard[row][column] !== 0) {
+    const shipSymbolsReverseLookup = {
+      C: "carrier",
+      B: "battleship",
+      R: "cruiser",
+      S: "submarine",
+      D: "destroyer",
+    };
+    const cellValue = this.playerBoard[row]?.[column];
+
+    //Check if cell is already filled with ship symbol
+    if (cellValue !== 0 && cellValue !== undefined) {
+      const shipHit = shipSymbolsReverseLookup[cellValue];
+      this.fleet[shipHit].hit();
       return true;
+    } else if (cellValue === 0) {
+      //Mark as missed "M"
+      this.playerBoard[row][column] = "M";
+      return false;
     } else {
       return false;
     }

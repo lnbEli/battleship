@@ -1,11 +1,11 @@
 export default class Ship {
   constructor(typeOfShip) {
     if (
-      typeOfShip !== "Carrier" &&
-      typeOfShip !== "Battleship" &&
-      typeOfShip !== "Cruiser" &&
-      typeOfShip !== "Submarine" &&
-      typeOfShip !== "Destroyer"
+      typeOfShip !== "carrier" &&
+      typeOfShip !== "battleship" &&
+      typeOfShip !== "cruiser" &&
+      typeOfShip !== "submarine" &&
+      typeOfShip !== "destroyer"
     ) {
       throw new Error(
         `${typeOfShip} is not permitted type. Type must be string and one of the following: Carrier, Battleship, Cruiser, Submarine, Destroyer`
@@ -14,11 +14,11 @@ export default class Ship {
 
     // Define lengths for each type of ship
     const lengths = {
-      Carrier: 5,
-      Battleship: 4,
-      Cruiser: 3,
-      Submarine: 3,
-      Destroyer: 2,
+      carrier: 5,
+      battleship: 4,
+      cruiser: 3,
+      submarine: 3,
+      destroyer: 2,
     };
 
     this.timesHit = 0;
